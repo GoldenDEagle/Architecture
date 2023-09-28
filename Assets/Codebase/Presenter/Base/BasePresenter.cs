@@ -1,7 +1,7 @@
-﻿using Assets.Codebase.Model.Gameplay;
-using Assets.Codebase.Model.Progress;
+﻿using Assets.Codebase.Models.Gameplay;
+using Assets.Codebase.Models.Progress;
 
-namespace Assets.Codebase.Presenter.Base
+namespace Assets.Codebase.Presenters.Base
 {
     public abstract class BasePresenter
     {

@@ -1,6 +1,6 @@
 ﻿using UniRx;
 
-namespace Assets.Codebase.Model.Progress.Data
+namespace Assets.Codebase.Models.Progress.Data
 {
     public class ReactiveProgress
     {

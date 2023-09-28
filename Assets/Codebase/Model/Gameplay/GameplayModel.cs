@@ -1,8 +1,8 @@
-﻿using Assets.Codebase.Model.Base;
-using Assets.Codebase.Model.Gameplay.Data;
+﻿using Assets.Codebase.Models.Base;
+using Assets.Codebase.Models.Gameplay.Data;
 using UniRx;
 
-namespace Assets.Codebase.Model.Gameplay
+namespace Assets.Codebase.Models.Gameplay
 {
     public class GameplayModel : BaseModel, IGameplayModel
     {

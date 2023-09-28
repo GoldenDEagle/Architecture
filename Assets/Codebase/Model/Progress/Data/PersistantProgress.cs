@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Codebase.Model.Progress.Data
+namespace Assets.Codebase.Models.Progress.Data
 {
     [Serializable]
     public class PersistantProgress

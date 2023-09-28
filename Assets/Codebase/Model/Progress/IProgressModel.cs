@@ -1,6 +1,6 @@
-﻿using Assets.Codebase.Model.Progress.Data;
+﻿using Assets.Codebase.Models.Progress.Data;
 
-namespace Assets.Codebase.Model.Progress
+namespace Assets.Codebase.Models.Progress
 {
     /// <summary>
     /// Model that contains all data that needs to be saved.

@@ -1,7 +1,7 @@
-﻿using Assets.Codebase.Model.Gameplay.Data;
+﻿using Assets.Codebase.Models.Gameplay.Data;
 using UniRx;
 
-namespace Assets.Codebase.Model.Gameplay
+namespace Assets.Codebase.Models.Gameplay
 {
     /// <summary>
     /// Model responsible for game flow.

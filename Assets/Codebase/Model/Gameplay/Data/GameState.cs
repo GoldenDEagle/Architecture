@@ -1,4 +1,4 @@
-﻿namespace Assets.Codebase.Model.Gameplay.Data
+﻿namespace Assets.Codebase.Models.Gameplay.Data
 {
     public enum GameState
     {
