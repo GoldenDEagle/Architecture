@@ -1,8 +1,11 @@
+using Assets.Codebase.Presenter.Base;
 using Assets.Codebase.Presenter.MainMenu;
+using Assets.Codebase.Presenters.Base;
 using Assets.Codebase.Utils.Extensions;
 using Assets.Codebase.Views.Base;
 using TMPro;
 using UniRx;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Codebase.Views.MainMenu
@@ -12,26 +15,26 @@ namespace Assets.Codebase.Views.MainMenu
     {
         private IMainMenuPresenter _presenter;
 
-        private TMP_Text _startStopText;
-        private Button _startButton;
+        [SerializeField] private TMP_Text _startStopText;
+        [SerializeField] private Button _startButton;
 
-        public void Init(IMainMenuPresenter presenter)
+        public override void Init(IPresenter presenter)
         {
-            _presenter = presenter;
+            _presenter = presenter as IMainMenuPresenter;
+
+            base.Init(_presenter);
         }
 
-        private void OnEnable()
+        protected override void SubscribeToUserInput()
         {
-            // Handle user interactions
-            _startButton.OnClickAsObservable().Subscribe( _ => _presenter.OnStartButtonClicked()).AddTo(CompositeDisposable);
-
-            // Handle presenter notificatons
-            _presenter.StartButtonTextKey.SubscribeToTMPText(_startStopText).AddTo(CompositeDisposable);
+            // Handle all button, tooggles, input fields, etc.
+            _startButton.OnClickAsObservable().Subscribe(_ => _presenter.OnStartButtonClicked()).AddTo(CompositeDisposable);
         }
 
-        private void OnDisable()
+        protected override void SubscribeToPresenterEvents()
         {
-            CompositeDisposable.Dispose();
+            // Handle presenter events
+            _presenter.StartButtonText.SubscribeToTMPText(_startStopText).AddTo(CompositeDisposable);
         }
     }
 }

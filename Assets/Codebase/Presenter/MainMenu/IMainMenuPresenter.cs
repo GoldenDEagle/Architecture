@@ -5,7 +5,7 @@ namespace Assets.Codebase.Presenter.MainMenu
 {
     public interface IMainMenuPresenter : IPresenter
     {
-        public ReactiveProperty<string> StartButtonTextKey { get; }
+        public ReactiveProperty<string> StartButtonText { get; }
 
         public void OnStartButtonClicked();
     }
