@@ -8,13 +8,16 @@ namespace Assets.Codebase.Utils.GOComponents
     /// </summary>
     public class SceneContext : MonoBehaviour
     {
+        [SerializeField] private RectTransform _uiRootPrefab;
         [SerializeField] GameLaunchParams _gameLaunchParams;
 
         private void Awake()
         {
             if (GameStructure.IsGameInitialized) return;
 
-            GameStructure structure = new GameStructure(null, _gameLaunchParams);
+            var uiRoot = Instantiate(_uiRootPrefab);
+
+            GameStructure structure = new GameStructure(uiRoot, _gameLaunchParams);
         }
     }
 }

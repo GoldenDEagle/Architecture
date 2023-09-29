@@ -33,19 +33,12 @@ namespace Assets.Codebase.Infrastructure.Initialization
         private IGameplayModel _gameplayModel;
         private List<BasePresenter> _presenters;
 
-        private const string NoUIRootWarning = "No UI Root was passed to game structure! Created new one.";
-
-        public GameStructure(RectTransform uiRoot = null, GameLaunchParams launchParams = null)
+        public GameStructure(RectTransform uiRoot, GameLaunchParams launchParams = null)
         {
             if (IsGameInitialized) { return; }
             IsGameInitialized = true;
 
             _uiRoot = uiRoot;
-            if (_uiRoot == null)
-            {
-                _uiRoot = new Canvas().GetComponent<RectTransform>();
-                Debug.Log(NoUIRootWarning);
-            }
 
             GameLaunchParameters = launchParams ?? new GameLaunchParams();
 
