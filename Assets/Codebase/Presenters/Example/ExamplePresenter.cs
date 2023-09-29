@@ -3,10 +3,10 @@ using Assets.Codebase.Presenters.Base;
 using Assets.Codebase.Views.Base;
 using UniRx;
 
-namespace Assets.Codebase.Presenters.MainMenu
+namespace Assets.Codebase.Presenters.Example
 {
     // Example presenter
-    public class MainMenuPresenter : BasePresenter, IMainMenuPresenter
+    public class ExamplePresenter : BasePresenter, IExamplePresenter
     {
         private const string StartText = "Start";
         private const string StopText = "Stop";
@@ -15,10 +15,10 @@ namespace Assets.Codebase.Presenters.MainMenu
         public ReactiveProperty<string> StartButtonText { get; private set; }
         public ReactiveProperty<string> GoldAmountText {  get; private set; } 
 
-        public MainMenuPresenter()
+        public ExamplePresenter()
         {
             // Corresponding view id
-            ViewId = ViewId.MainMenu;
+            ViewId = ViewId.ExampleView;
 
             // Init all properties
             StartButtonText = new ReactiveProperty<string>(StartText);

@@ -19,7 +19,7 @@ namespace Assets.Codebase.Infrastructure.ServicesManagment.ViewCreation
         private RectTransform _uiRoot;
 
         // Paths to all view prefabs
-        private const string MainMenuPath = "Views/MainMenuView";
+        private const string ExampleViewPathPath = "Views/ExampleView";
 
         private IAssetProvider _assets;
 
@@ -47,8 +47,8 @@ namespace Assets.Codebase.Infrastructure.ServicesManagment.ViewCreation
                 case ViewId.None:
                     new System.ArgumentException(nameof(viewId));
                     break;
-                case ViewId.MainMenu:
-                    path = MainMenuPath;
+                case ViewId.ExampleView:
+                    path = ExampleViewPathPath;
                     break;
                 default:
                     throw new System.ArgumentException(nameof(viewId));

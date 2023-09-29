@@ -4,7 +4,7 @@ using Assets.Codebase.Infrastructure.ServicesManagment.ViewCreation;
 using Assets.Codebase.Models.Gameplay;
 using Assets.Codebase.Models.Progress;
 using Assets.Codebase.Presenters.Base;
-using Assets.Codebase.Presenters.MainMenu;
+using Assets.Codebase.Presenters.Example;
 using Assets.Codebase.Utils.GOComponents;
 using Assets.Codebase.Views.Base;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ namespace Assets.Codebase.Infrastructure
             RegisterServices();
 
             // Start the game
-            ServiceLocator.Container.Single<IViewCreatorService>().CreateView(ViewId.MainMenu);
+            ServiceLocator.Container.Single<IViewCreatorService>().CreateView(ViewId.ExampleView);
         }
 
         private void CreateModels()
@@ -44,7 +44,7 @@ namespace Assets.Codebase.Infrastructure
         {
             // Create presenter foreach view
             _presenters = new List<BasePresenter>();
-            _presenters.Add(new MainMenuPresenter());
+            _presenters.Add(new ExamplePresenter());
 
             foreach (var presenter in _presenters)
             {

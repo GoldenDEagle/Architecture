@@ -7,12 +7,12 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Codebase.Views.MainMenu
+namespace Assets.Codebase.Views.Example
 {
     // Example view
-    public class MainMenuView : BaseView
+    public class ExampleView : BaseView
     {
-        private IMainMenuPresenter _presenter;
+        private IExamplePresenter _presenter;
 
         [SerializeField] private TMP_Text _startStopText;
         [SerializeField] private TMP_Text _goldText;
@@ -21,7 +21,7 @@ namespace Assets.Codebase.Views.MainMenu
 
         public override void Init(IPresenter presenter)
         {
-            _presenter = presenter as IMainMenuPresenter;
+            _presenter = presenter as IExamplePresenter;
 
             base.Init(_presenter);
         }

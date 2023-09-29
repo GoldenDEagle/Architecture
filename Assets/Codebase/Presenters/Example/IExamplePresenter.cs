@@ -3,7 +3,7 @@ using UniRx;
 
 namespace Assets.Codebase.Presenter.MainMenu
 {
-    public interface IMainMenuPresenter : IPresenter
+    public interface IExamplePresenter : IPresenter
     {
         public ReactiveProperty<string> StartButtonText { get; }
         public ReactiveProperty<string> GoldAmountText { get; }

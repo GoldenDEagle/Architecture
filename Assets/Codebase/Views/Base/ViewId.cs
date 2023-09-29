@@ -4,6 +4,6 @@
     {
         // Give Id to all views
         None = 0,
-        MainMenu = 1,
+        ExampleView = 1,
     }
 }
