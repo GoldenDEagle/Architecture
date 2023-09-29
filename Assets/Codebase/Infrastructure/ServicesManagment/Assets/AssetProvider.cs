@@ -2,6 +2,9 @@
 
 namespace Assets.Codebase.Infrastructure.ServicesManagment.Assets
 {
+    /// <summary>
+    /// Provides assets using Resources folder.
+    /// </summary>
     public class AssetProvider : IAssetProvider
     {
         public GameObject Instantiate(string path)

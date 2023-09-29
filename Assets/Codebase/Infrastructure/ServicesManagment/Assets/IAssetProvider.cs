@@ -2,6 +2,9 @@
 
 namespace Assets.Codebase.Infrastructure.ServicesManagment.Assets
 {
+    /// <summary>
+    /// Service for assets load.
+    /// </summary>
     public interface IAssetProvider : IService
     {
         GameObject Instantiate(string path);

@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace Assets.Codebase.Infrastructure.ServicesManagment.ViewCreation
 {
+    /// <summary>
+    /// Creates new views using IAssetProvider.
+    /// </summary>
     public class ViewCreatorService : IViewCreatorService
     {
         // All presenters

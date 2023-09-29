@@ -7,6 +7,9 @@
             InitModel();
         }
 
+        /// <summary>
+        /// Fills model with data.
+        /// </summary>
         protected abstract void InitModel();
     }
 }

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assets.Codebase.Infrastructure.ServicesManagment
+﻿namespace Assets.Codebase.Infrastructure.ServicesManagment
 {
+    /// <summary>
+    /// DI Container.
+    /// </summary>
     public class ServiceLocator
     {
         private static ServiceLocator _instance;

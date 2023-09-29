@@ -21,7 +21,7 @@ namespace Assets.Codebase.Views.MainMenu
         public override void Init(IPresenter presenter)
         {
             _presenter = presenter as IMainMenuPresenter;
-            
+
             base.Init(_presenter);
         }
 

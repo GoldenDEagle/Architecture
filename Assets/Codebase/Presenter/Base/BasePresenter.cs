@@ -12,10 +12,18 @@ namespace Assets.Codebase.Presenters.Base
         protected IProgressModel ProgressModel;
         protected IGameplayModel GameplayModel;
 
+        /// <summary>
+        /// Corresponding view Id.
+        /// </summary>
         protected ViewId ViewId = ViewId.None;
 
         public event Action OnCloseView;
 
+        /// <summary>
+        /// Creates binding to models.
+        /// </summary>
+        /// <param name="progressModel"></param>
+        /// <param name="gameplayModel"></param>
         public void SetupModels(IProgressModel progressModel, IGameplayModel gameplayModel)
         {
             ProgressModel = progressModel;
@@ -27,6 +35,10 @@ namespace Assets.Codebase.Presenters.Base
             OnCloseView?.Invoke();
         }
 
+        /// <summary>
+        /// Gets ID of corresponding view.
+        /// </summary>
+        /// <returns></returns>
         public ViewId GetCorrespondingViewId()
         {
             return ViewId;
