@@ -3,20 +3,28 @@ using Assets.Codebase.Models.Progress;
 using Assets.Codebase.Presenter.Base;
 using Assets.Codebase.Views.Base;
 using System;
-using System.Security.Cryptography;
+using UniRx;
 
 namespace Assets.Codebase.Presenters.Base
 {
-    public abstract class BasePresenter : IPresenter
+    public abstract class BasePresenter : IPresenter, IDisposable
     {
+        // References to models
         protected IProgressModel ProgressModel;
         protected IGameplayModel GameplayModel;
+
+        /// <summary>
+        /// Container for all disposables.
+        /// </summary>
+        protected CompositeDisposable CompositeDisposable = new CompositeDisposable();
 
         /// <summary>
         /// Corresponding view Id.
         /// </summary>
         protected ViewId ViewId = ViewId.None;
 
+
+        // Fire this to close view.
         public event Action OnCloseView;
 
         /// <summary>
@@ -28,7 +36,14 @@ namespace Assets.Codebase.Presenters.Base
         {
             ProgressModel = progressModel;
             GameplayModel = gameplayModel;
+
+            SubscribeToModelChanges();
         }
+
+        /// <summary>
+        /// Subscribe to all interesting model parameters.
+        /// </summary>
+        protected abstract void SubscribeToModelChanges();
 
         public void CloseView()
         {
@@ -42,6 +57,11 @@ namespace Assets.Codebase.Presenters.Base
         public ViewId GetCorrespondingViewId()
         {
             return ViewId;
+        }
+
+        public void Dispose()
+        {
+            CompositeDisposable.Dispose();
         }
     }
 }

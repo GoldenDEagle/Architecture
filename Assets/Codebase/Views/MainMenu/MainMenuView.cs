@@ -15,6 +15,7 @@ namespace Assets.Codebase.Views.MainMenu
         private IMainMenuPresenter _presenter;
 
         [SerializeField] private TMP_Text _startStopText;
+        [SerializeField] private TMP_Text _goldText;
         [SerializeField] private Button _startButton;
         [SerializeField] private Button _closeButton;
 
@@ -37,6 +38,7 @@ namespace Assets.Codebase.Views.MainMenu
             base.SubscribeToPresenterEvents();
             // Handle presenter events
             _presenter.StartButtonText.SubscribeToTMPText(_startStopText).AddTo(CompositeDisposable);
+            _presenter.GoldAmountText.SubscribeToTMPText(_goldText).AddTo(CompositeDisposable);
         }
     }
 }

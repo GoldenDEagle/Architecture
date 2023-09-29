@@ -1,6 +1,5 @@
 using Assets.Codebase.Infrastructure.ServicesManagment;
 using Assets.Codebase.Infrastructure.ServicesManagment.Assets;
-using Assets.Codebase.Infrastructure.ServicesManagment.Progress;
 using Assets.Codebase.Infrastructure.ServicesManagment.ViewCreation;
 using Assets.Codebase.Models.Gameplay;
 using Assets.Codebase.Models.Progress;

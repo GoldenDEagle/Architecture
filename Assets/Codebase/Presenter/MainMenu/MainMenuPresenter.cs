@@ -11,17 +11,30 @@ namespace Assets.Codebase.Presenters.MainMenu
         private const string StartText = "Start";
         private const string StopText = "Stop";
 
+        // Reactive property for each changable window element
         public ReactiveProperty<string> StartButtonText { get; private set; }
+        public ReactiveProperty<string> GoldAmountText {  get; private set; } 
 
         public MainMenuPresenter()
         {
             // Corresponding view id
             ViewId = ViewId.MainMenu;
 
-            // Reactive property for each window element
+            // Init all properties
             StartButtonText = new ReactiveProperty<string>(StartText);
+            GoldAmountText = new ReactiveProperty<string>(0.ToString());
         }
 
+        protected override void SubscribeToModelChanges()
+        {
+            // Subscribe to each model parameter of interest
+            ProgressModel.ReactiveProgress.Gold.Subscribe(OnGoldAmountChanged).AddTo(CompositeDisposable);
+        }
+
+        private void OnGoldAmountChanged(int newGoldAmount)
+        {
+            GoldAmountText.Value = newGoldAmount.ToString();
+        }
 
         public void OnStartButtonClicked()
         {
@@ -33,6 +46,8 @@ namespace Assets.Codebase.Presenters.MainMenu
             {
                 StartButtonText.Value = StartText;
             }
+
+            ProgressModel.ReactiveProgress.Gold.Value++;
         }
     }
 }
