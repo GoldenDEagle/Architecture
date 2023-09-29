@@ -1,4 +1,5 @@
 using Assets.Codebase.Infrastructure.ServicesManagment;
+using Assets.Codebase.Infrastructure.ServicesManagment.Ads;
 using Assets.Codebase.Infrastructure.ServicesManagment.Assets;
 using Assets.Codebase.Infrastructure.ServicesManagment.ViewCreation;
 using Assets.Codebase.Models.Gameplay;
@@ -58,6 +59,7 @@ namespace Assets.Codebase.Infrastructure
 
             services.RegisterSingle<IAssetProvider>(new AssetProvider());
             services.RegisterSingle<IViewCreatorService>(new ViewCreatorService(services.Single<IAssetProvider>(), _presenters, _uiRoot));
+            services.RegisterSingle<IAdsService>(new GamePushAdService());
         }
     }
 }

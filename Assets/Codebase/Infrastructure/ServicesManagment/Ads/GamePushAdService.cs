@@ -1,22 +1,47 @@
-﻿using System;
+﻿using GamePush;
+using UnityEngine;
 
 namespace Assets.Codebase.Infrastructure.ServicesManagment.Ads
 {
-    internal class GamePushAdService : IAdsService
+    public class GamePushAdService : IAdsService
     {
+        private bool _adsEnabled = true;
+
         public void SetAdsStatus(bool adsEnabled)
         {
-            throw new NotImplementedException();
+            _adsEnabled = adsEnabled;
+        }
+
+        public bool CheckIfFullscreenIsAvailable()
+        {
+            return GP_Ads.IsFullscreenAvailable();
         }
 
         public void ShowFullscreen()
         {
-            throw new NotImplementedException();
+            if (!_adsEnabled)
+            {
+                Debug.Log("Ads are disabled!");
+                return;
+            }
+
+            if (CheckIfFullscreenIsAvailable())
+            {
+                GP_Ads.ShowFullscreen();
+            }
+        }
+
+        public bool CheckIfRewardedIsAvailable()
+        {
+            return GP_Ads.IsRewardedAvailable();
         }
 
         public void ShowRewarded()
         {
-            throw new NotImplementedException();
+            if (CheckIfRewardedIsAvailable())
+            {
+                GP_Ads.ShowRewarded();
+            }
         }
     }
 }

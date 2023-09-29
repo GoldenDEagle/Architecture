@@ -5,7 +5,12 @@
     /// </summary>
     public interface IAdsService : IService
     {
+        // Rewarded Ad
+        public bool CheckIfRewardedIsAvailable();
         public void ShowRewarded();
+
+        // Fullscreen Ad
+        public bool CheckIfFullscreenIsAvailable();
         public void ShowFullscreen();
 
         /// <summary>
