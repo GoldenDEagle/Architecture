@@ -18,14 +18,7 @@ namespace Assets.Codebase.Models.Progress
 
         protected override void InitModel()
         {
-            if (CanFindSave())
-            {
-                LoadProgress();
-            }
-            else
-            {
-                CreateNewProgress();
-            }
+            LoadProgress();
         }
 
         protected bool CanFindSave()
@@ -51,6 +44,18 @@ namespace Assets.Codebase.Models.Progress
         }
 
         public void LoadProgress()
+        {
+            if (CanFindSave())
+            {
+                GetProgressFromPrefs();
+            }
+            else
+            {
+                CreateNewProgress();
+            }
+        }
+
+        private void GetProgressFromPrefs()
         {
             var progress = PlayerPrefs.GetString(ProgressKey).ToDeserealized<PersistantProgress>();
             ReactiveProgress = new ReactiveProgress(progress);

@@ -11,7 +11,7 @@ namespace Assets.Codebase.Infrastructure.ServicesManagment.Audio
     /// </summary>
     public class AudioService : IAudioService
     {
-        private const string AudioPath = "Audio/AudioData";
+        private const string AudioPath = "Audio/AudioDataContainer";
 
         private IAssetProvider _assets;
         private IProgressModel _progress;
@@ -30,6 +30,9 @@ namespace Assets.Codebase.Infrastructure.ServicesManagment.Audio
         private void InitData()
         {
             var audioData = _assets.LoadResource<AudioDataContainer>(AudioPath);
+
+            if (audioData.AudioClips == null) return;
+
             _clips = new Dictionary<SoundId, AudioClip>();
             foreach (var clip in audioData.AudioClips)
             {

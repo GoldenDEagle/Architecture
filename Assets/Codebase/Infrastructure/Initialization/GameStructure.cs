@@ -1,11 +1,17 @@
-﻿using Assets.Codebase.Infrastructure.ServicesManagment.Ads;
+﻿using Assets.Codebase.Infrastructure.ServicesManagment;
+using Assets.Codebase.Infrastructure.ServicesManagment.Ads;
 using Assets.Codebase.Infrastructure.ServicesManagment.Assets;
+using Assets.Codebase.Infrastructure.ServicesManagment.Audio;
+using Assets.Codebase.Infrastructure.ServicesManagment.Gameplay;
+using Assets.Codebase.Infrastructure.ServicesManagment.Localization;
+using Assets.Codebase.Infrastructure.ServicesManagment.PresenterManagement;
+using Assets.Codebase.Infrastructure.ServicesManagment.Progress;
 using Assets.Codebase.Infrastructure.ServicesManagment.ViewCreation;
-using Assets.Codebase.Infrastructure.ServicesManagment;
 using Assets.Codebase.Models.Gameplay;
 using Assets.Codebase.Models.Progress;
 using Assets.Codebase.Presenters.Base;
 using Assets.Codebase.Presenters.Example;
+using GamePush;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +23,7 @@ namespace Assets.Codebase.Infrastructure.Initialization
     public class GameStructure
     {
         public static bool IsGameInitialized = false;
+        public static GameLaunchParams GameLaunchParameters { get; private set; }
 
         // Needed from outside
         private RectTransform _uiRoot;
@@ -26,16 +33,31 @@ namespace Assets.Codebase.Infrastructure.Initialization
         private IGameplayModel _gameplayModel;
         private List<BasePresenter> _presenters;
 
-        public GameStructure(RectTransform uiRoot)
+        private const string NoUIRootWarning = "No UI Root was passed to game structure! Created new one.";
+
+        public GameStructure(RectTransform uiRoot = null, GameLaunchParams launchParams = null)
         {
+            if (IsGameInitialized) { return; }
+            IsGameInitialized = true;
+
             _uiRoot = uiRoot;
+            if (_uiRoot == null)
+            {
+                _uiRoot = new Canvas().GetComponent<RectTransform>();
+                Debug.Log(NoUIRootWarning);
+            }
+
+            GameLaunchParameters = launchParams ?? new GameLaunchParams();
+
+            ApplyPreloadParams();
 
             InitMVPStructure();
             RegisterServices();
 
-            IsGameInitialized = true;
+            ApplyAfterLoadParams();
         }
 
+        // MVP structure
         private void InitMVPStructure()
         {
             CreateModels();
@@ -60,6 +82,7 @@ namespace Assets.Codebase.Infrastructure.Initialization
             }
         }
 
+
         /// <summary>
         /// Registering all game services.
         /// </summary>
@@ -70,6 +93,44 @@ namespace Assets.Codebase.Infrastructure.Initialization
             services.RegisterSingle<IAssetProvider>(new AssetProvider());
             services.RegisterSingle<IViewCreatorService>(new ViewCreatorService(services.Single<IAssetProvider>(), _presenters, _uiRoot));
             services.RegisterSingle<IAdsService>(new GamePushAdService());
+            services.RegisterSingle<IAudioService>(new AudioService(services.Single<IAssetProvider>(), _progressModel));
+            services.RegisterSingle<IGameplayService>(new GameplayService(_gameplayModel));
+            services.RegisterSingle<ILocalizationService>(new GoogleSheetLocalizationService());
+            services.RegisterSingle<IPresentersService>(new PresentersService(_presenters));
+            services.RegisterSingle<IProgressService>(new ProgressService(_progressModel));
+        }
+
+
+        // Launch params handling.
+        /// <summary>
+        /// Before model and service initialization.
+        /// </summary>
+        private void ApplyPreloadParams()
+        {
+            if (GameLaunchParameters.ManualParamSet)
+            {
+                if (GameLaunchParameters.ClearPlayerPrefs)
+                {
+                    PlayerPrefs.DeleteAll();
+                }
+            }
+        }
+
+        /// <summary>
+        /// After model and service initialization.
+        /// </summary>
+        private void ApplyAfterLoadParams()
+        {
+            var services = ServiceLocator.Container;
+
+            if (GameLaunchParameters.ManualParamSet)
+            {
+                services.Single<ILocalizationService>().SetLanguage(GameLaunchParameters.Language);
+            }
+            else
+            {
+                services.Single<ILocalizationService>().SetLanguage(GP_Language.Current());
+            }
         }
     }
 }
