@@ -15,7 +15,7 @@ namespace Assets.Codebase.Views.Example
         private IExamplePresenter _presenter;
 
         [SerializeField] private TMP_Text _startStopText;
-        [SerializeField] private TMP_Text _goldText;
+        [SerializeField] private TMP_Text _sampleValueText;
         [SerializeField] private Button _startButton;
         [SerializeField] private Button _closeButton;
 
@@ -38,7 +38,7 @@ namespace Assets.Codebase.Views.Example
             base.SubscribeToPresenterEvents();
             // Handle presenter events
             _presenter.StartButtonText.SubscribeToTMPText(_startStopText).AddTo(CompositeDisposable);
-            _presenter.GoldAmountText.SubscribeToTMPText(_goldText).AddTo(CompositeDisposable);
+            _presenter.SampleValueAmountString.SubscribeToTMPText(_sampleValueText).AddTo(CompositeDisposable);
         }
     }
 }

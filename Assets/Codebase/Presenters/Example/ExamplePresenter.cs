@@ -13,7 +13,7 @@ namespace Assets.Codebase.Presenters.Example
 
         // Reactive property for each changable window element
         public ReactiveProperty<string> StartButtonText { get; private set; }
-        public ReactiveProperty<string> GoldAmountText {  get; private set; } 
+        public ReactiveProperty<string> SampleValueAmountString {  get; private set; } 
 
         public ExamplePresenter()
         {
@@ -22,18 +22,18 @@ namespace Assets.Codebase.Presenters.Example
 
             // Init all properties
             StartButtonText = new ReactiveProperty<string>(StartText);
-            GoldAmountText = new ReactiveProperty<string>(0.ToString());
+            SampleValueAmountString = new ReactiveProperty<string>(0.ToString());
         }
 
         protected override void SubscribeToModelChanges()
         {
             // Subscribe to each model parameter of interest
-            ProgressModel.ReactiveProgress.Gold.Subscribe(OnGoldAmountChanged).AddTo(CompositeDisposable);
+            ProgressModel.ReactiveProgress.SampleValue.Subscribe(OnSampleValueChanged).AddTo(CompositeDisposable);
         }
 
-        private void OnGoldAmountChanged(int newGoldAmount)
+        private void OnSampleValueChanged(int newGoldAmount)
         {
-            GoldAmountText.Value = newGoldAmount.ToString();
+            SampleValueAmountString.Value = newGoldAmount.ToString();
         }
 
         public void OnStartButtonClicked()
@@ -47,7 +47,7 @@ namespace Assets.Codebase.Presenters.Example
                 StartButtonText.Value = StartText;
             }
 
-            ProgressModel.ReactiveProgress.Gold.Value++;
+            ProgressModel.ReactiveProgress.SampleValue.Value++;
         }
     }
 }

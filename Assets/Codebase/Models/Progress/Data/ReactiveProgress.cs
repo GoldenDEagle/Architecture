@@ -2,11 +2,16 @@
 
 namespace Assets.Codebase.Models.Progress.Data
 {
+    /// <summary>
+    /// Used at runtime.
+    /// </summary>
     public class ReactiveProgress
     {
         // All the properties that need to be saved...
 
-        public ReactiveProperty<int> Gold;
+        public ReactiveProperty<int> SampleValue;
+        public ReactiveProperty<float> MusicVolume;
+        public ReactiveProperty<float> SFXVolume;
 
         // .
 
@@ -15,7 +20,9 @@ namespace Assets.Codebase.Models.Progress.Data
         /// </summary>
         public ReactiveProgress()
         {
-            Gold = new ReactiveProperty<int>(0);
+            SampleValue = new ReactiveProperty<int>(0);
+            MusicVolume = new ReactiveProperty<float>(0.5f);
+            SFXVolume = new ReactiveProperty<float>(0.5f);
         }
 
         /// <summary>
@@ -24,7 +31,9 @@ namespace Assets.Codebase.Models.Progress.Data
         /// <param name="progress"></param> Progress to initialize from
         public ReactiveProgress(PersistantProgress progress)
         {
-            Gold = new ReactiveProperty<int>(progress.Gold);
+            SampleValue = new ReactiveProperty<int>(progress.SampleValue);
+            MusicVolume = new ReactiveProperty<float>();
+            SFXVolume = new ReactiveProperty<float>();
         }
     }
 }

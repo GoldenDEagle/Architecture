@@ -2,16 +2,23 @@
 
 namespace Assets.Codebase.Models.Progress.Data
 {
+    /// <summary>
+    /// Representation of ReactiveProgress that can be serialized and saved.
+    /// </summary>
     [Serializable]
     public class PersistantProgress
     {
         // All the same properties as ReactiveProgress, but Serializable
-        public int Gold;
+        public int SampleValue;
+        public float MusicVolume;
+        public float SFXVolume;
 
         public void SetValues(ReactiveProgress progress)
         {
             // Fill all properties
-            Gold = progress.Gold.Value;
+            SampleValue = progress.SampleValue.Value;
+            MusicVolume = progress.MusicVolume.Value;
+            SFXVolume = progress.SFXVolume.Value;
         }
     }
 }

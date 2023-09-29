@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startStopText: {fileID: 3869708131806974785}
-  _goldText: {fileID: 2157638789852435114}
+  _sampleValueText: {fileID: 2157638789852435114}
   _startButton: {fileID: 2206901287325029271}
   _closeButton: {fileID: 1578125133204230248}
 --- !u!1 &2883327292313241621
