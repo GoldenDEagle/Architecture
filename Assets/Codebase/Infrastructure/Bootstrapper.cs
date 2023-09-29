@@ -24,15 +24,18 @@ namespace Assets.Codebase.Infrastructure
 
         private void Awake()
         {
-            // Create MVP
-            CreateModels();
-            CreatePresenters();
+            InitMVPStructure();
 
-            // RegisterServices
             RegisterServices();
 
             // Start the game
             ServiceLocator.Container.Single<IViewCreatorService>().CreateView(ViewId.ExampleView);
+        }
+
+        private void InitMVPStructure()
+        {
+            CreateModels();
+            CreatePresenters();
         }
 
         private void CreateModels()
