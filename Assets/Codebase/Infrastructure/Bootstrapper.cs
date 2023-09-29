@@ -8,7 +8,6 @@ using Assets.Codebase.Presenters.Base;
 using Assets.Codebase.Presenters.Example;
 using Assets.Codebase.Utils.GOComponents;
 using Assets.Codebase.Views.Base;
-using GamePush;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,7 +33,6 @@ namespace Assets.Codebase.Infrastructure
 
             // Start the game
             ServiceLocator.Container.Single<IViewCreatorService>().CreateView(ViewId.ExampleView);
-            var language = GP_Language.Current();
         }
 
         private void CreateModels()

@@ -17,7 +17,7 @@ namespace Assets.SimpleLocalization.Scripts
         public static event Action LocalizationChanged = () => { }; 
 
         public static Dictionary<string, Dictionary<string, string>> Dictionary = new Dictionary<string, Dictionary<string, string>>();
-        private static string _language = "English";
+        private static string _language = "Russian";
 
 		/// <summary>
 		/// Get or set language.
@@ -33,7 +33,7 @@ namespace Assets.SimpleLocalization.Scripts
 		/// </summary>
         public static void AutoLanguage()
         {
-            Language = "English";
+            Language = "Russian";
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Assets.SimpleLocalization.Scripts
                 }
             }
 
-            AutoLanguage();
+            //AutoLanguage();
         }
 
         /// <summary>
