@@ -2,6 +2,8 @@
 using Assets.Codebase.Models.Progress;
 using Assets.Codebase.Presenter.Base;
 using Assets.Codebase.Views.Base;
+using System;
+using System.Security.Cryptography;
 
 namespace Assets.Codebase.Presenters.Base
 {
@@ -12,10 +14,17 @@ namespace Assets.Codebase.Presenters.Base
 
         protected ViewId ViewId = ViewId.None;
 
+        public event Action OnCloseView;
+
         public void SetupModels(IProgressModel progressModel, IGameplayModel gameplayModel)
         {
             ProgressModel = progressModel;
             GameplayModel = gameplayModel;
+        }
+
+        public void CloseView()
+        {
+            OnCloseView?.Invoke();
         }
 
         public ViewId GetCorrespondingViewId()

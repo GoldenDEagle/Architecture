@@ -1,6 +1,5 @@
 using Assets.Codebase.Presenter.Base;
 using Assets.Codebase.Presenter.MainMenu;
-using Assets.Codebase.Presenters.Base;
 using Assets.Codebase.Utils.Extensions;
 using Assets.Codebase.Views.Base;
 using TMPro;
@@ -17,11 +16,12 @@ namespace Assets.Codebase.Views.MainMenu
 
         [SerializeField] private TMP_Text _startStopText;
         [SerializeField] private Button _startButton;
+        [SerializeField] private Button _closeButton;
 
         public override void Init(IPresenter presenter)
         {
             _presenter = presenter as IMainMenuPresenter;
-
+            
             base.Init(_presenter);
         }
 
@@ -29,10 +29,12 @@ namespace Assets.Codebase.Views.MainMenu
         {
             // Handle all button, tooggles, input fields, etc.
             _startButton.OnClickAsObservable().Subscribe(_ => _presenter.OnStartButtonClicked()).AddTo(CompositeDisposable);
+            _closeButton.OnClickAsObservable().Subscribe(_ => _presenter.CloseView()).AddTo(CompositeDisposable);
         }
 
         protected override void SubscribeToPresenterEvents()
         {
+            base.SubscribeToPresenterEvents();
             // Handle presenter events
             _presenter.StartButtonText.SubscribeToTMPText(_startStopText).AddTo(CompositeDisposable);
         }

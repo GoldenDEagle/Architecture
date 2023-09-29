@@ -7,8 +7,11 @@ namespace Assets.Codebase.Views.Base
 {
     public abstract class BaseView : MonoBehaviour
     {
+        protected IPresenter Presenter;
+
         public virtual void Init(IPresenter presenter)
         {
+            Presenter = presenter;
             SubscribeToUserInput();
             SubscribeToPresenterEvents();
         }
@@ -22,9 +25,19 @@ namespace Assets.Codebase.Views.Base
         protected virtual void OnDisable() 
         {
             CompositeDisposable.Dispose();
+            Presenter.OnCloseView -= CloseView;
         }
 
         protected abstract void SubscribeToUserInput();
-        protected abstract void SubscribeToPresenterEvents();
+        protected virtual void SubscribeToPresenterEvents()
+        {
+            Presenter.OnCloseView += CloseView;
+        }
+
+        private void CloseView()
+        {
+            // Or other close logic
+            Destroy(gameObject);
+        }
     }
 }
