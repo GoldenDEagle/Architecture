@@ -43,7 +43,7 @@ namespace Assets.Codebase.Infrastructure
 
         private void CreatePresenters()
         {
-            // Create presenter foreach view
+            // Create presenter for each view
             _presenters = new List<BasePresenter>();
             _presenters.Add(new ExamplePresenter());
 
