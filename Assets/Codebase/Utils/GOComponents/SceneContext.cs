@@ -11,6 +11,8 @@ namespace Assets.Codebase.Utils.GOComponents
         [SerializeField] private RectTransform _uiRootPrefab;
         [SerializeField] GameLaunchParams _gameLaunchParams;
 
+#if UNITY_EDITOR
+
         private void Awake()
         {
             if (GameStructure.IsGameInitialized) return;
@@ -19,5 +21,6 @@ namespace Assets.Codebase.Utils.GOComponents
 
             GameStructure structure = new GameStructure(uiRoot, _gameLaunchParams);
         }
+#endif
     }
 }
