@@ -13,7 +13,7 @@ namespace Assets.Codebase.Models.Progress.Data
         public float MusicVolume;
         public float SFXVolume;
 
-        public void SetValues(ReactiveProgress progress)
+        public void SetValues(SessionProgress progress)
         {
             // Fill all properties
             SampleValue = progress.SampleValue.Value;

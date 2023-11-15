@@ -12,13 +12,17 @@ namespace Assets.Codebase.Models.Progress
     {
         private const string ProgressKey = "Progress";
 
-        public ReactiveProgress ReactiveProgress { get; private set; }
+        public SessionProgress SessionProgress { get; private set; }
 
         private PersistantProgress _persistantProgress;
 
-        protected override void InitModel()
+        public LocalProgressModel()
         {
             LoadProgress();
+        }
+
+        public void InitModel()
+        {
         }
 
         protected bool CanFindSave()
@@ -28,7 +32,7 @@ namespace Assets.Codebase.Models.Progress
 
         protected void CreateNewProgress()
         {
-            ReactiveProgress = new ReactiveProgress();
+            SessionProgress = new SessionProgress();
         }
 
         public void SaveProgress()
@@ -39,7 +43,7 @@ namespace Assets.Codebase.Models.Progress
                 _persistantProgress = new PersistantProgress();
             }
 
-            _persistantProgress.SetValues(ReactiveProgress);
+            _persistantProgress.SetValues(SessionProgress);
             PlayerPrefs.SetString(ProgressKey, _persistantProgress.ToJson());
         }
 
@@ -58,7 +62,7 @@ namespace Assets.Codebase.Models.Progress
         private void GetProgressFromPrefs()
         {
             var progress = PlayerPrefs.GetString(ProgressKey).ToDeserealized<PersistantProgress>();
-            ReactiveProgress = new ReactiveProgress(progress);
+            SessionProgress = new SessionProgress(progress);
         }
     }
 }

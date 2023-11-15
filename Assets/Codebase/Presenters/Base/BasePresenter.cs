@@ -1,4 +1,6 @@
-﻿using Assets.Codebase.Models.Gameplay;
+﻿using Assets.Codebase.Infrastructure.ServicesManagment.ViewCreation;
+using Assets.Codebase.Infrastructure.ServicesManagment;
+using Assets.Codebase.Models.Gameplay;
 using Assets.Codebase.Models.Progress;
 using Assets.Codebase.Presenter.Base;
 using Assets.Codebase.Views.Base;
@@ -25,7 +27,9 @@ namespace Assets.Codebase.Presenters.Base
 
 
         // Fire this to close view.
-        public event Action OnCloseView;
+        public Subject<Unit> OnCloseView { get; private set; }
+
+        private bool _isViewActive = false;
 
         /// <summary>
         /// Creates binding to models.
@@ -37,17 +41,26 @@ namespace Assets.Codebase.Presenters.Base
             ProgressModel = progressModel;
             GameplayModel = gameplayModel;
 
+            OnCloseView = new Subject<Unit>();
+
             SubscribeToModelChanges();
         }
 
         /// <summary>
         /// Subscribe to all interesting model parameters.
         /// </summary>
-        protected abstract void SubscribeToModelChanges();
+        protected virtual void SubscribeToModelChanges()
+        {
+            GameplayModel.ActiveViewId.Where(activeView => activeView == ViewId).Subscribe(_ => CreateView()).AddTo(CompositeDisposable);
+            GameplayModel.OnViewClosed.Where(activeView => activeView == ViewId).Subscribe(_ => CloseView()).AddTo(CompositeDisposable);
+        }
 
         public void CloseView()
         {
-            OnCloseView?.Invoke();
+            if (!_isViewActive) return;
+
+            _isViewActive = false;
+            OnCloseView.OnNext(Unit.Default);
         }
 
         /// <summary>
@@ -57,6 +70,16 @@ namespace Assets.Codebase.Presenters.Base
         public ViewId GetCorrespondingViewId()
         {
             return ViewId;
+        }
+
+        /// <summary>
+        /// Creates corresponding view
+        /// </summary>
+        public virtual void CreateView()
+        {
+            _isViewActive = true;
+            var view = ServiceLocator.Container.Single<IViewCreatorService>().CreateView(ViewId);
+            view.Init(this);
         }
 
         public void Dispose()

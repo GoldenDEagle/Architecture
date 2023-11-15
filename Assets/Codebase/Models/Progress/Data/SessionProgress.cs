@@ -5,7 +5,7 @@ namespace Assets.Codebase.Models.Progress.Data
     /// <summary>
     /// Used at runtime.
     /// </summary>
-    public class ReactiveProgress
+    public class SessionProgress
     {
         // All the properties that need to be saved...
 
@@ -18,7 +18,7 @@ namespace Assets.Codebase.Models.Progress.Data
         /// <summary>
         /// Creates new progress with default values.
         /// </summary>
-        public ReactiveProgress()
+        public SessionProgress()
         {
             SampleValue = new ReactiveProperty<int>(0);
             MusicVolume = new ReactiveProperty<float>(0.5f);
@@ -29,7 +29,7 @@ namespace Assets.Codebase.Models.Progress.Data
         /// Creates new progress from persistant data.
         /// </summary>
         /// <param name="progress"></param> Progress to initialize from
-        public ReactiveProgress(PersistantProgress progress)
+        public SessionProgress(PersistantProgress progress)
         {
             SampleValue = new ReactiveProperty<int>(progress.SampleValue);
             MusicVolume = new ReactiveProperty<float>();

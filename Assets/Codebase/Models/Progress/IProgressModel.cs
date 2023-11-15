@@ -1,16 +1,17 @@
-﻿using Assets.Codebase.Models.Progress.Data;
+﻿using Assets.Codebase.Models.Base;
+using Assets.Codebase.Models.Progress.Data;
 
 namespace Assets.Codebase.Models.Progress
 {
     /// <summary>
     /// Model that contains all data that needs to be saved.
     /// </summary>
-    public interface IProgressModel
+    public interface IProgressModel : IModel
     {
         /// <summary>
         /// Contains all progress data and notifies presenters.
         /// </summary>
-        public ReactiveProgress ReactiveProgress { get; }
+        public SessionProgress SessionProgress { get; }
 
         /// <summary>
         /// Creates a save.
