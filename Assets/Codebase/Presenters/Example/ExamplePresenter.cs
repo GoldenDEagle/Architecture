@@ -27,6 +27,7 @@ namespace Assets.Codebase.Presenters.Example
 
         protected override void SubscribeToModelChanges()
         {
+            base.SubscribeToModelChanges();
             // Subscribe to each model parameter of interest
             ProgressModel.SessionProgress.SampleValue.Subscribe(OnSampleValueChanged).AddTo(CompositeDisposable);
         }

@@ -17,6 +17,8 @@
     const progressBarFillColor = "{{{ PROGRESS_BAR_FILL_COLOR.replace(/ /g, '') }}}";
     const progressBarBackgroundColor = "{{{ PROGRESS_BAR_BACKGROUND_COLOR.replace(/ /g, '') }}}";
     const progressBarBorderColor = "{{{ PROGRESS_BAR_BORDER_COLOR.replace(/ /g, '') }}}";
+
+    const autocallGameReady = "{{{ GAMEREADY_AUTOCALL_DELAY.replace(/ /g, '') }}}";
   </script>
 
   <script>
@@ -43,7 +45,10 @@
       gp.player.ready.finally(_gpAwaiter.done);
 
       await _unityAwaiter.ready;
-      gp.gameStart();
+
+      if (autocallGameReady != null && parseFloat(autocallGameReady) > 0) {
+        setTimeout(() => gp.gameStart(), parseFloat(autocallGameReady));
+      }
     };
   </script>
 

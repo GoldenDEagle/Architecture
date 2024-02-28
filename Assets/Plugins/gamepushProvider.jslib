@@ -56,7 +56,6 @@ mergeInto(LibraryManager.library, {
     /* PLATFORM */
 
 
-
     /* APP */
     GP_App_Title: function () {
         var value = GamePush.AppTitle();
@@ -86,6 +85,46 @@ mergeInto(LibraryManager.library, {
         stringToUTF8(value, buffer, bufferSize);
         return buffer;
     },
+    GP_App_ReviewRequest: function(){
+        var value = GamePush.AppRequestReview();
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
+
+    GP_App_CanReview: function(){
+        var value = GamePush.AppCanRequestReview();
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
+
+    GP_App_IsAlreadyReviewed: function(){
+        var value = GamePush.AppIsAlreadyReviewed();
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
+
+    GP_App_AddShortcut: function(){
+        var value = GamePush.AppAddShortcut();
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
+
+    GP_App_CanAddShortcut: function(){
+        var value = GamePush.AppCanAddShortcut();
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
+
     /* APP */
 
 
@@ -224,16 +263,32 @@ mergeInto(LibraryManager.library, {
         stringToUTF8(value, buffer, bufferSize);
         return buffer;
     },
+
+    // Player stats 
+
+    GP_Player_GetActiveDays: function () {
+        return GamePush.PlayerGetActiveDays();
+    },
+    GP_Player_GetActiveDaysConsecutive: function () {
+        return GamePush.PlayerGetActiveDaysConsecutive();
+    },
+    GP_Player_GetPlaytimeToday: function () {
+        return GamePush.PlayerGetPlaytimeToday();
+    },
+    GP_Player_GetPlaytimeAll: function () {
+        return GamePush.PlayerGetPlaytimeAll();
+    },
+
     /* PLAYER */
 
 
 
     /* LEADER BOARD */
-    GP_Leaderboard_Open: function (orderBy, order, limit, withMe, includeFields, displayFields) {
-        GamePush.LeaderboardOpen(UTF8ToString(orderBy), UTF8ToString(order), limit, UTF8ToString(withMe), UTF8ToString(includeFields), UTF8ToString(displayFields));
+    GP_Leaderboard_Open: function (orderBy, order, limit, showNearest, withMe, includeFields, displayFields) {
+        GamePush.LeaderboardOpen(UTF8ToString(orderBy), UTF8ToString(order), limit, showNearest, UTF8ToString(withMe), UTF8ToString(includeFields), UTF8ToString(displayFields));
     },
-    GP_Leaderboard_Fetch: function (tag, orderBy, order, limit, withMe, includeFields) {
-        GamePush.LeaderboardFetch(UTF8ToString(tag), UTF8ToString(orderBy), UTF8ToString(order), limit, UTF8ToString(withMe), UTF8ToString(includeFields));
+    GP_Leaderboard_Fetch: function (tag, orderBy, order, limit, showNearest, withMe, includeFields) {
+        GamePush.LeaderboardFetch(UTF8ToString(tag), UTF8ToString(orderBy), UTF8ToString(order), limit, showNearest, UTF8ToString(withMe), UTF8ToString(includeFields));
     },
     GP_Leaderboard_FetchPlayerRating: function (tag, orderBy, order) {
         GamePush.LeaderboardFetchPlayerRating(UTF8ToString(tag), UTF8ToString(orderBy), UTF8ToString(order));
@@ -243,11 +298,11 @@ mergeInto(LibraryManager.library, {
 
 
     /* LEADER BOARD SCOPED */
-    GP_Leaderboard_Scoped_Open: function (idOrTag, variant, order, limit, includeFields, displayFields, withMe) {
-        GamePush.LeaderboardScopedOpen(UTF8ToString(idOrTag), UTF8ToString(variant), UTF8ToString(order), limit, UTF8ToString(includeFields), UTF8ToString(displayFields), UTF8ToString(withMe));
+    GP_Leaderboard_Scoped_Open: function (idOrTag, variant, order, limit, showNearest, includeFields, displayFields, withMe) {
+        GamePush.LeaderboardScopedOpen(UTF8ToString(idOrTag), UTF8ToString(variant), UTF8ToString(order), limit, showNearest, UTF8ToString(includeFields), UTF8ToString(displayFields), UTF8ToString(withMe));
     },
-    GP_Leaderboard_Scoped_Fetch: function (idOrTag, variant, order, limit, includeFields, withMe) {
-        GamePush.LeaderboardScopedFetch(UTF8ToString(idOrTag), UTF8ToString(variant), UTF8ToString(order), limit, UTF8ToString(includeFields), UTF8ToString(withMe));
+    GP_Leaderboard_Scoped_Fetch: function (idOrTag, variant, order, limit, showNearest, includeFields, withMe) {
+        GamePush.LeaderboardScopedFetch(UTF8ToString(idOrTag), UTF8ToString(variant), UTF8ToString(order), limit, showNearest, UTF8ToString(includeFields), UTF8ToString(withMe));
     },
     GP_Leaderboard_Scoped_PublishRecord: function (idOrTag, variant, override, key1, value1, key2, value2, key3, value3) {
         GamePush.LeaderboardScopedPublishRecord(UTF8ToString(idOrTag), UTF8ToString(variant), override, UTF8ToString(key1), value1, UTF8ToString(key2), value2, UTF8ToString(key3), value3);
@@ -287,7 +342,6 @@ mergeInto(LibraryManager.library, {
     /* ACHIEVEMENTS */
 
 
-
     /* PAYMENTS */
     GP_Payments_FetchProducts: function () {
         GamePush.PaymentsFetchProducts();
@@ -323,7 +377,6 @@ mergeInto(LibraryManager.library, {
     },
 
     /* Subscription */
-
 
     /* PAYMENTS */
 
@@ -432,6 +485,28 @@ mergeInto(LibraryManager.library, {
         stringToUTF8(value, buffer, bufferSize);
         return buffer;
     },
+    GP_Ads_IsCountdownOverlayEnabled: function () {
+        var value = GamePush.AdsIsCountdownOverlayEnabled();
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
+    GP_Ads_IsRewardedFailedOverlayEnabled: function () {
+        var value = GamePush.AdsIsRewardedFailedOverlayEnabled();
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
+    GP_Ads_CanShowFullscreenBeforeGamePlay: function () {
+        var value = GamePush.AdsCanShowFullscreenBeforeGamePlay();
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
+
     /* ADS */
 
 
@@ -451,6 +526,8 @@ mergeInto(LibraryManager.library, {
     GP_Socials_Share: function (text, url, image) {
         GamePush.SocialsShare(UTF8ToString(text), UTF8ToString(url), UTF8ToString(image));
     },
+
+
     GP_Socials_Post: function (text, url, image) {
         GamePush.SocialsPost(UTF8ToString(text), UTF8ToString(url), UTF8ToString(image));
     },
@@ -513,6 +590,25 @@ mergeInto(LibraryManager.library, {
         return buffer;
 
     },
+
+    GP_Socials_MakeShareLink: function (content) {
+        var value = GamePush.SocialsMakeShareLink(UTF8ToString(content));
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
+
+    GP_Socials_GetSharePlayerID: function () {
+        return GamePush.SocialsGetSharePlayerID();
+    },
+    GP_Socials_GetShareContent: function () {
+        var value = GamePush.SocialsGetShareContent();
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
     /* SOCIALS */
 
 
@@ -552,6 +648,14 @@ mergeInto(LibraryManager.library, {
         GamePush.GameplayStop();
     },
 
+    GP_GameReady: function(){
+        GamePush.GameReady();
+    },
+
+    GP_HappyTime: function(){
+        GamePush.HappyTime();
+    },
+
     /*GAME*/
 
 
@@ -559,6 +663,14 @@ mergeInto(LibraryManager.library, {
     /*DEVICE*/
     GP_IsMobile: function () {
         var value = GamePush.IsMobile();
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
+
+    GP_IsPortrait: function () {
+        var value = GamePush.IsPortrait();
         var bufferSize = lengthBytesUTF8(value) + 1;
         var buffer = _malloc(bufferSize);
         stringToUTF8(value, buffer, bufferSize);
@@ -598,8 +710,6 @@ mergeInto(LibraryManager.library, {
         return buffer;
     },
     /*SYSTEM*/
-
-
 
     /*VARIABLES*/
     GP_Variables_Fetch: function () {
@@ -699,7 +809,6 @@ mergeInto(LibraryManager.library, {
     /* FILES */
 
 
-
     /* CHANNELS */
     GP_Channels_Open: function (channel_ID) {
         GamePush.Channels_Open_Chat(channel_ID);
@@ -715,7 +824,6 @@ mergeInto(LibraryManager.library, {
     GP_Channels_MainChatId: function () {
         return GamePush.Channels_MainChatId();
     },
-
 
     GP_Channels_Join: function (channel_ID, password) {
         GamePush.Channels_Join(channel_ID, UTF8ToString(password));
@@ -853,5 +961,32 @@ mergeInto(LibraryManager.library, {
     },
 
     /* CHANNELS */
+
+    /*CUSTOM*/
+    GP_CustomCall: function(name, args){
+        GamePush.CustomCall(UTF8ToString(name), UTF8ToString(args));
+    },
+
+    GP_CustomReturn: function(name, args){
+        var value = GamePush.CustomReturn(UTF8ToString(name), UTF8ToString(args));
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
+
+    GP_CustomGetValue: function(name){
+        var value = GamePush.CustomGetValue(UTF8ToString(name));
+        var bufferSize = lengthBytesUTF8(value) + 1;
+        var buffer = _malloc(bufferSize);
+        stringToUTF8(value, buffer, bufferSize);
+        return buffer;
+    },
+
+    GP_CustomAsyncReturn: function(name, args){
+        GamePush.CustomAsyncReturn(UTF8ToString(name), UTF8ToString(args));
+    },
+    
+    /*CUSTOM*/
 
 });
