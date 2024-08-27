@@ -1,6 +1,6 @@
 using Assets.Codebase.Infrastructure.Initialization;
 using Assets.Codebase.Infrastructure.ServicesManagment;
-using Assets.Codebase.Infrastructure.ServicesManagment.Gameplay;
+using Assets.Codebase.Infrastructure.ServicesManagment.ModelAccess;
 using Assets.Codebase.Utils.GOComponents;
 using Assets.Codebase.Views.Base;
 using UnityEngine;
@@ -19,7 +19,7 @@ namespace Assets.Codebase.Infrastructure
             GameStructure structure = new GameStructure(_uiRoot, _launchParams);
 
             // Start the game
-            ServiceLocator.Container.Single<IGameplayService>().GameplayModel.ActivateView(ViewId.ExampleView);
+            ServiceLocator.Container.Single<IModelAccessService>().GameplayModel.ActivateView(ViewId.ExampleView);
         }
     }
 }

@@ -2,10 +2,9 @@
 using Assets.Codebase.Infrastructure.ServicesManagment.Ads;
 using Assets.Codebase.Infrastructure.ServicesManagment.Assets;
 using Assets.Codebase.Infrastructure.ServicesManagment.Audio;
-using Assets.Codebase.Infrastructure.ServicesManagment.Gameplay;
 using Assets.Codebase.Infrastructure.ServicesManagment.Localization;
+using Assets.Codebase.Infrastructure.ServicesManagment.ModelAccess;
 using Assets.Codebase.Infrastructure.ServicesManagment.PresenterManagement;
-using Assets.Codebase.Infrastructure.ServicesManagment.Progress;
 using Assets.Codebase.Infrastructure.ServicesManagment.ViewCreation;
 using Assets.Codebase.Models.Gameplay;
 using Assets.Codebase.Models.Progress;
@@ -46,6 +45,7 @@ namespace Assets.Codebase.Infrastructure.Initialization
 
             CreateMVPStructure();
             RegisterServices();
+
             // Fills data using asset provider
             _gameplayModel.InitModel();
 
@@ -68,8 +68,10 @@ namespace Assets.Codebase.Infrastructure.Initialization
         private void CreatePresenters()
         {
             // Create presenter for each view
-            _presenters = new List<BasePresenter>();
-            _presenters.Add(new ExamplePresenter());
+            _presenters = new List<BasePresenter>
+            {
+                new ExamplePresenter()
+            };
 
             foreach (var presenter in _presenters)
             {
@@ -89,10 +91,9 @@ namespace Assets.Codebase.Infrastructure.Initialization
             services.RegisterSingle<IViewCreatorService>(new ViewCreatorService(services.Single<IAssetProvider>(), _presenters, _uiRoot));
             services.RegisterSingle<IAdsService>(new GamePushAdService());
             services.RegisterSingle<IAudioService>(new AudioService(services.Single<IAssetProvider>(), _progressModel));
-            services.RegisterSingle<IGameplayService>(new GameplayService(_gameplayModel));
+            services.RegisterSingle<IModelAccessService>(new ModelAccessService(_progressModel, _gameplayModel));
             services.RegisterSingle<ILocalizationService>(new GoogleSheetLocalizationService());
             services.RegisterSingle<IPresentersService>(new PresentersService(_presenters));
-            services.RegisterSingle<IProgressService>(new ProgressService(_progressModel));
         }
 
 

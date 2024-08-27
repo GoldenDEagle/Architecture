@@ -1,21 +1,39 @@
 using UnityEngine;
 using GamePush;
-using GP_Utilities.Console;
+using GamePush.ConsoleController;
+using System.Threading.Tasks;
+using System;
+using System.Runtime.InteropServices;
 
-namespace GP_Utilities.Initialization
+namespace GamePush.Initialization
 {
+    
     public class GP_Initialization
     {
+        public static string VERSION = GP_Data.SDK_VERSION;
+
+        [DllImport("__Internal")]
+        private static extern void GP_UnityReady();
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Execute()
         {
+#if !UNITY_EDITOR && UNITY_WEBGL
+             GP_UnityReady();
+#endif
+
             GameObject SDK = new GameObject();
-
             SDK.name = "GamePushSDK";
+            UnityEngine.Object.DontDestroyOnLoad(SDK);
 
-            Object.DontDestroyOnLoad(SDK);
-
+#if UNITY_EDITOR
             SDK.AddComponent<GP_ConsoleController>();
+#endif
+            SDK.AddComponent<GP_Logger>();
+
+            SDK.AddComponent<GP_Init>();
+            SetUpInitAwaiter();
+            
             SDK.AddComponent<GP_Achievements>();
             SDK.AddComponent<GP_Ads>();
             SDK.AddComponent<GP_Analytics>();
@@ -39,7 +57,40 @@ namespace GP_Utilities.Initialization
             SDK.AddComponent<GP_Socials>();
             SDK.AddComponent<GP_System>();
             SDK.AddComponent<GP_Variables>();
+            SDK.AddComponent<GP_Triggers>();
+            SDK.AddComponent<GP_Events>();
+            SDK.AddComponent<GP_Experiments>();
+            SDK.AddComponent<GP_Segments>();
+            SDK.AddComponent<GP_Rewards>();
+            SDK.AddComponent<GP_Schedulers>();
+            SDK.AddComponent<GP_Images>();
             SDK.AddComponent<GP_Custom>();
+            SDK.AddComponent<GP_Uniques>();
+            SDK.AddComponent<GP_Storage>();
+
+            EndInit();
+        }
+
+        private static async void EndInit()
+        {
+            await GP_Init.Ready;
+            GP_Logger.Info($"Plugin {VERSION}", "Initialize");
+        }
+
+        private static void SetUpInitAwaiter()
+        {
+            TaskCompletionSource<bool> _tcs = new TaskCompletionSource<bool>();
+            GP_Init.Ready = _tcs.Task;
+
+            GP_Init.OnReady += () => {
+                if (!_tcs.Task.IsCompleted)
+                    _tcs.SetResult(true);
+            };
+
+            GP_Init.OnError += () => {
+                if (!_tcs.Task.IsCompleted)
+                    _tcs.SetResult(false);
+            };
         }
     }
 }
